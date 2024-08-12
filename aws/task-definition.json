@@ -1,7 +1,7 @@
 {
     "family": "go-simple-api",
-    "taskRoleArn": "arn:aws:iam::533267095025:role/ecsTaskExecutionRole",
-    "executionRoleArn": "arn:aws:iam::533267095025:role/ecsTaskExecutionRole",
+    "taskRoleArn": "arn:aws:iam::533267095025:role/go-simple-server-ecs-task",
+    "executionRoleArn": "arn:aws:iam::533267095025:role/-simple-server-ecs",
     "networkMode": "awsvpc",
     "requiresCompatibilities": [
         "FARGATE"
