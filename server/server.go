@@ -8,14 +8,21 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// Server is the server struct
+// Server はサーバー構造体です
+// counter: リクエスト数をカウントする変数
+// server: HTTPサーバーのインスタンス
+// router: Ginルーターのインスタンス
 type Server struct {
 	counter int64
 	server  *http.Server
 	router  *gin.Engine
 }
 
-// New creates a new server
+// New は新しいサーバーを作成します
+// 1. Ginのデフォルトルーターを初期化
+// 2. Server構造体を初期化（カウンターを0に設定）
+// 3. ルートとヘルスチェックのエンドポイントを設定
+// 4. 初期化されたServerのポインタを返す
 func New() *Server {
 	router := gin.Default()
 	server := &Server{
@@ -29,14 +36,17 @@ func New() *Server {
 	return server
 }
 
-// HealthHandler returns a 200 OK response
+// HealthHandler はヘルスチェックエンドポイントのハンドラーです
+// 200 OKレスポンスを返します
 func (s *Server) HealthHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "ok",
 	})
 }
 
-// CounterHandler increments the counter and returns its value
+// CounterHandler はカウンターを増加させ、その値を返すハンドラーです
+// 1. カウンターをインクリメント
+// 2. 現在のカウンター値をJSONで返す
 func (s *Server) CounterHandler(c *gin.Context) {
 	s.counter++
 	c.JSON(http.StatusOK, gin.H{
@@ -44,7 +54,10 @@ func (s *Server) CounterHandler(c *gin.Context) {
 	})
 }
 
-// Run starts the server
+// Start はサーバーを起動します
+// 1. HTTPサーバーを設定（アドレス、ハンドラー、読み取りタイムアウト）
+// 2. サーバー起動のログを出力
+// 3. サーバーを起動し、エラーがあれば返す
 func (s *Server) Start(address string) error {
 	s.server = &http.Server{
 		Addr:        address,
@@ -57,7 +70,10 @@ func (s *Server) Start(address string) error {
 	return s.server.ListenAndServe()
 }
 
-// Stop stops the server
+// Stop はサーバーを停止します
+// 1. 停止処理開始のログを出力
+// 2. サーバーが未初期化の場合は何もせずに終了
+// 3. サーバーを閉じる
 func (s *Server) Stop() error {
 	log.Println("Stopping server...")
 
