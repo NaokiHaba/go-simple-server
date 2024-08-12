@@ -1,0 +1,33 @@
+{
+    "family": "go-simple-api",
+    "taskRoleArn": "arn:aws:iam::533267095025:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::533267095025:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "512",
+    "containerDefinitions": [
+        {
+            "name": "go-simple-server",
+            "image": "",
+            "portMappings": [
+                {
+                    "containerPort": 8080,
+                    "hostPort": 8080,
+                    "protocol": "tcp"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/aws/ecs/go-simple-server",
+                    "awslogs-region": "ap-northeast-1",
+                    "awslogs-stream-prefix": "app"
+                }
+            },
+            "essential": true
+        }
+    ]
+}
